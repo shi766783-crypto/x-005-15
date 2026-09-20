@@ -34,6 +34,9 @@ const activeMenu = computed(() => {
         <el-menu-item index="dashboard" :route="{ name: 'dashboard' }">
           <el-icon><DataAnalysis /></el-icon><span>数据看板</span>
         </el-menu-item>
+        <el-menu-item index="expenses" :route="{ name: 'expenses' }">
+          <el-icon><TrendCharts /></el-icon><span>花费统计</span>
+        </el-menu-item>
         <el-menu-item index="leaderboard" :route="{ name: 'leaderboard' }">
           <el-icon><Trophy /></el-icon><span>排行榜</span>
         </el-menu-item>

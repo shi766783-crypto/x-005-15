@@ -20,6 +20,28 @@ export function isCurrentMonth(ts: number): boolean {
   return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth()
 }
 
+/** 时间戳 → YYYY-MM（按月归集键） */
+export function monthKey(ts: number): string {
+  const d = new Date(ts)
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  return `${d.getFullYear()}-${m}`
+}
+
+/** 最近 n 个月的归集键（含本月，时间升序） */
+export function lastMonthKeys(n: number): string[] {
+  const now = new Date()
+  const keys: string[] = []
+  for (let i = n - 1; i >= 0; i--) {
+    keys.push(monthKey(new Date(now.getFullYear(), now.getMonth() - i, 1).getTime()))
+  }
+  return keys
+}
+
+/** 金额格式化：¥1,234.5（最多两位小数） */
+export function formatMoney(v: number): string {
+  return `¥${toNumber(v).toLocaleString('zh-CN', { maximumFractionDigits: 2 })}`
+}
+
 /** 判断 ISO 日期字符串 a 是否 <= b（YYYY-MM-DD 可直接字典序比较） */
 export function isOnOrBefore(a: string, b: string): boolean {
   return a <= b
