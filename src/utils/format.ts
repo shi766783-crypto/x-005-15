@@ -34,3 +34,16 @@ export function today(): string {
 export function isOverdue(expectedReturnDate: string): boolean {
   return expectedReturnDate < today()
 }
+
+/** 金额格式化：保留两位小数并加千分位，如 1234.5 → 1,234.50 */
+export function formatMoney(v: number): string {
+  return toNumber(v).toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+}
+
+/** 金额简写：坐标轴/标签用，如 12345 → 1.2万，4500 → 4500 */
+export function formatMoneyShort(v: number): string {
+  const n = toNumber(v)
+  if (Math.abs(n) >= 10000) return `${(n / 10000).toLocaleString('zh-CN', { maximumFractionDigits: 1 })}万`
+  if (Number.isInteger(n)) return String(n)
+  return n.toLocaleString('zh-CN', { maximumFractionDigits: 1 })
+}
